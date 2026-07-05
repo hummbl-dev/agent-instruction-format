@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "v0.1",
+  "packetStatus": "candidate",
+  "instructionManifest": {
+    "id": "aif:example:code-review-conventions",
+    "title": "Code Review Conventions",
+    "version": "0.1.0",
+    "scope": "Conventions for an agent performing code review on a pull request."
+  },
+  "authority": {
+    "issuer": "hummbl-dev/agent-instruction-format",
+    "nonCanon": true
+  },
+  "instructionContract": {
+    "instructionType": "convention",
+    "hierarchyLevel": 2,
+    "content": "Review changes against the repository's stated conventions. Prefer small, evidence-backed comments. Do not introduce private operational detail. Mark speculative suggestions as such.",
+    "overrideRules": "Lower hierarchyLevel overrides higher. Conflicts with an explicit user instruction are resolved in favor of the user instruction.",
+    "inheritancePolicy": "inherit"
+  },
+  "receiptRequirements": {
+    "confirmScope": true,
+    "confirmNoSecrets": true,
+    "notes": "Reviewer should confirm the packet is candidate status and not adopted guidance."
+  }
+}

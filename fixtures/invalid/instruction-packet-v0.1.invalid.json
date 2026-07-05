@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "v0.1",
+  "packetStatus": "candidate",
+  "instructionManifest": {
+    "id": "aif:fixture:invalid-missing-contract",
+    "title": "Invalid Packet Missing instructionContract",
+    "version": "0.1.0",
+    "scope": "An invalid packet used as a validation fixture; it omits the required instructionContract field."
+  },
+  "authority": {
+    "issuer": "hummbl-dev/agent-instruction-format",
+    "nonCanon": true
+  },
+  "receiptRequirements": {
+    "confirmScope": true,
+    "confirmNoSecrets": true
+  }
+}
