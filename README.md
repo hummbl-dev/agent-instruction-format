@@ -1,6 +1,6 @@
 # Agent Instruction Format
 
-$(System.Collections.Hashtable.Name) is a public seed repository for agent-facing instruction files.
+Agent Instruction Format is a public seed repository for agent-facing instruction files.
 
 ## Purpose
 
