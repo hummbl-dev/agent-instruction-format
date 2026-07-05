@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "v0.1",
+  "packetStatus": "candidate",
+  "instructionManifest": {
+    "id": "aif:fixture:valid-minimal",
+    "title": "Valid Minimal Packet",
+    "version": "0.1.0",
+    "scope": "A minimal valid packet used as a validation fixture."
+  },
+  "authority": {
+    "issuer": "hummbl-dev/agent-instruction-format",
+    "nonCanon": true
+  },
+  "instructionContract": {
+    "instructionType": "system",
+    "hierarchyLevel": 0,
+    "content": "Be concise. Preserve provenance. Avoid overclaims.",
+    "overrideRules": "System-level instructions are overridden only by an explicit, higher-authority user instruction.",
+    "inheritancePolicy": "inherit"
+  },
+  "receiptRequirements": {
+    "confirmScope": true,
+    "confirmNoSecrets": true
+  }
+}

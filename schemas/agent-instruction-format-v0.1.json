@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hummbl.dev/agent-instruction-format/schemas/agent-instruction-format-v0.1.json",
+  "title": "Agent Instruction Format v0.1 Packet",
+  "description": "Minimal, reviewable instruction packet for agent-facing instruction material. Candidate namespace only; not a standard.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "packetStatus",
+    "instructionManifest",
+    "authority",
+    "instructionContract",
+    "receiptRequirements"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "v0.1",
+      "description": "Schema version this packet conforms to."
+    },
+    "packetStatus": {
+      "type": "string",
+      "enum": ["candidate", "adopted"],
+      "description": "Lifecycle status of the packet. v0.1 only permits 'candidate'."
+    },
+    "instructionManifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Identity block for the packet.",
+      "required": ["id", "title", "version", "scope"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Stable packet identifier."
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-readable title."
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Packet version (semver-ish string)."
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Short statement of what the packet covers."
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Who/what issued the packet and its non-canon posture.",
+      "required": ["issuer", "nonCanon"],
+      "properties": {
+        "issuer": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Issuer of the packet."
+        },
+        "nonCanon": {
+          "type": "boolean",
+          "description": "If true, the packet does not claim to canonize any concept."
+        }
+      }
+    },
+    "instructionContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The executable contract for the instruction.",
+      "required": [
+        "instructionType",
+        "hierarchyLevel",
+        "content",
+        "overrideRules",
+        "inheritancePolicy"
+      ],
+      "properties": {
+        "instructionType": {
+          "type": "string",
+          "enum": ["system", "user", "task", "convention"],
+          "description": "Kind of instruction."
+        },
+        "hierarchyLevel": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Rank in an instruction hierarchy (lower = stronger)."
+        },
+        "content": {
+          "description": "The instruction content (string or structured object).",
+          "oneOf": [
+            { "type": "string", "minLength": 1 },
+            { "type": "object" }
+          ]
+        },
+        "overrideRules": {
+          "type": "string",
+          "minLength": 1,
+          "description": "How this packet interacts with conflicting instructions."
+        },
+        "inheritancePolicy": {
+          "type": "string",
+          "enum": ["inherit", "do-not-inherit", "conditional"],
+          "description": "Whether/how child contexts inherit this instruction."
+        }
+      }
+    },
+    "receiptRequirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "What a reviewer or executor must confirm before acting on the packet.",
+      "required": ["confirmScope", "confirmNoSecrets"],
+      "properties": {
+        "confirmScope": {
+          "type": "boolean",
+          "description": "Reviewer must confirm the packet scope is understood."
+        },
+        "confirmNoSecrets": {
+          "type": "boolean",
+          "description": "Reviewer must confirm the packet contains no secrets or private operational content."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional free-text notes for the reviewer."
+        }
+      }
+    }
+  }
+}
